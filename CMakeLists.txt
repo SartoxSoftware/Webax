@@ -8,6 +8,6 @@ set(wxWidgets_CONFIGURATION mswu)
 find_package(wxWidgets COMPONENTS core base REQUIRED)
 include(${wxWidgets_USE_FILE})
 
-add_executable(Webax main.cpp include/IO.hpp include/UI.hpp components/UI/app/WebaxApp.cpp components/UI/app/WebaxFrame.cpp components/UI/include/WebaxApp.hpp components/UI/include/WebaxFrame.hpp components/UI/include/WebaxEventIDs.hpp)
+add_executable(Webax main.cpp include/IO.hpp include/UI.hpp components/UI/app/WebaxApp.cpp components/UI/app/WebaxFrame.cpp components/UI/include/WebaxApp.hpp components/UI/include/WebaxFrame.hpp components/UI/include/WebaxEventIDs.hpp lib/csock/unix/BaseSocketUnix.cpp lib/include/unix/BaseSocketUnix.hpp lib/csock/ClientSession.cpp lib/include/ClientSession.hpp lib/csock/BaseSocket.cpp lib/include/BaseSocket.hpp lib/csock/Request.cpp lib/include/Request.hpp)
 
 target_link_libraries(Webax ${wxWidgets_LIBRARIES})
