@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Webax"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/anerruption/CLionProjects/Webax/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/anerruption/CLionProjects/Webax/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/anerruption/CLionProjects/Webax/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Webax">
+				<Option output="/home/anerruption/CLionProjects/Webax/cmake-build-debug/Webax" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/anerruption/CLionProjects/Webax/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_FILE_OFFSET_BITS=64"/>
+					<Add option="-DWXUSINGDLL"/>
+					<Add option="-D__WXGTK__"/>
+					<Add directory="/usr/lib/wx/include/gtk2-unicode-3.0"/>
+					<Add directory="/usr/include/wx-3.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 Webax"/>
+					<CompileFile command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Webax/fast">
+				<Option output="/home/anerruption/CLionProjects/Webax/cmake-build-debug/Webax" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/anerruption/CLionProjects/Webax/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_FILE_OFFSET_BITS=64"/>
+					<Add option="-DWXUSINGDLL"/>
+					<Add option="-D__WXGTK__"/>
+					<Add directory="/usr/lib/wx/include/gtk2-unicode-3.0"/>
+					<Add directory="/usr/include/wx-3.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 Webax/fast"/>
+					<CompileFile command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/sbin/make -j4 -f &quot;/home/anerruption/CLionProjects/Webax/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/anerruption/CLionProjects/Webax/components/UI/app/WebaxApp.cpp">
+			<Option target="Webax"/>
+		</Unit>
+		<Unit filename="/home/anerruption/CLionProjects/Webax/components/UI/app/WebaxFrame.cpp">
+			<Option target="Webax"/>
+		</Unit>
+		<Unit filename="/home/anerruption/CLionProjects/Webax/components/UI/include/WebaxApp.hpp">
+			<Option target="Webax"/>
+		</Unit>
+		<Unit filename="/home/anerruption/CLionProjects/Webax/components/UI/include/WebaxEventIDs.hpp">
+			<Option target="Webax"/>
+		</Unit>
+		<Unit filename="/home/anerruption/CLionProjects/Webax/components/UI/include/WebaxFrame.hpp">
+			<Option target="Webax"/>
+		</Unit>
+		<Unit filename="/home/anerruption/CLionProjects/Webax/include/IO.hpp">
+			<Option target="Webax"/>
+		</Unit>
+		<Unit filename="/home/anerruption/CLionProjects/Webax/include/UI.hpp">
+			<Option target="Webax"/>
+		</Unit>
+		<Unit filename="/home/anerruption/CLionProjects/Webax/main.cpp">
+			<Option target="Webax"/>
+		</Unit>
+		<Unit filename="/home/anerruption/CLionProjects/Webax/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
