@@ -18,6 +18,8 @@ public:
 #else
 
 #include "unix/BaseSocketUnix.hpp"
+"cstddef"
+
     BaseSocketUnix socket;
 
 #endif

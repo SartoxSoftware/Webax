@@ -2,8 +2,8 @@
 // Created by anerruption on 9/29/21.
 //
 
-#include "../include/Request.hpp"
-#include "../include/ClientSession.hpp"
+#include "../include/csock/Request.hpp"
+#include "../include/csock/ClientSession.hpp"
 
 char* Request::Send(char *address, int port, char *buffer)
 {

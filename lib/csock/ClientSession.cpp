@@ -2,7 +2,7 @@
 // Created by anerruption on 9/29/21.
 //
 
-#include "../include/ClientSession.hpp"
+#include "../include/csock/ClientSession.hpp"
 
 #include <cstring>
 
