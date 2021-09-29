@@ -9,22 +9,29 @@
 #include <cstdlib>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <cstring>
 
 bool BaseSocketUnix::Open()
 {
     struct sockaddr_in serv_addr{};
 
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+    int domain = AF_INET;
+
+    // Check if address is IPv6
+    if (strstr(address, ":") != nullptr)
+        domain = AF_INET6;
+
+    if ((sock = socket(domain, SOCK_STREAM, 0)) < 0)
     {
         //std::cout << "An error occured while trying to create the socket." << std::endl;
         return false;
     }
 
-    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_family = domain;
     serv_addr.sin_port = htons(port);
 
     // Convert the text address into binary
-    if (inet_pton(AF_INET, address, &serv_addr.sin_addr) <= 0)
+    if (inet_pton(domain, address, &serv_addr.sin_addr) <= 0)
     {
         //std::cout << "Address not supported or invalid!" << std::endl;
         return false;
