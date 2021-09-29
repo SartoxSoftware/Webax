@@ -8,8 +8,4 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
-<<<<<<< HEAD
 _deps
-=======
-_deps
->>>>>>> 838e0b25d97469baf8f80e0bf117bd285dbae6ee
