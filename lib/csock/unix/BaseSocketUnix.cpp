@@ -81,17 +81,21 @@ char* BaseSocketUnix::Receive(size_t bytes)
 
 char* BaseSocketUnix::ReceiveAll()
 {
-    ssize_t bytes = 1;
-    char* buffer = (char*)malloc(bytes);
+    size_t bytes = 0;
+    char* buffer = (char*)malloc(1);
 
     while (true)
     {
-        buffer[bytes++] = ' ';
-        ssize_t received = read(sock, buffer, 1);
+        char* tmp = (char*)malloc(1);
+
+        ssize_t received = read(sock, tmp, 1);
+        buffer[bytes++] = tmp[0];
+
+        free(tmp);
 
         if (received == -1) // An error occured
         {
-            //std::cout << "An error occured while reading all bytes." << std::endl;
+            //std::cout << "An error occured while reading a byte." << std::endl;
             continue;
         }
 
