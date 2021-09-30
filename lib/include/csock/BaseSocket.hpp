@@ -7,21 +7,16 @@
 
 #include <cstddef>
 
+#include "windows/BaseSocketWindows.hpp"
+#include "unix/BaseSocketUnix.hpp"
+
 class BaseSocket
 {
 public:
 #if defined(_WIN32) || defined(_WIN64)
-
-#include "unix/BaseSocketWindows.hpp"
     BaseSocketWindows socket;
-
 #else
-
-#include "unix/BaseSocketUnix.hpp"
-"cstddef"
-
     BaseSocketUnix socket;
-
 #endif
 
     bool Open();

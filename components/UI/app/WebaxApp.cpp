@@ -10,9 +10,12 @@
 
 #include "../include/WebaxApp.hpp"
 #include "../include/WebaxFrame.hpp"
+//#include "../../../tests/include/NetworkTest1.hpp"
 
 bool WebaxApp::OnInit()
 {
+    //NetworkTest1::Execute();
+
     auto *frame = new WebaxFrame;
     frame->Show(true);
     return true;

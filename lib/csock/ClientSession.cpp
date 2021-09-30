@@ -4,8 +4,6 @@
 
 #include "../include/csock/ClientSession.hpp"
 
-#include <cstring>
-
 ClientSession ClientSession::Create(char *address, int port)
 {
     ClientSession session = ClientSession();
@@ -41,7 +39,18 @@ char* ClientSession::Send(char* buffer, size_t bytes)
     return response;
 }
 
-char* ClientSession::Send(char* buffer)
+char* ClientSession::Send(char* buffer, size_t bytes, size_t receive)
 {
-    return Send(buffer, strlen(buffer));
+    bool sent = socket.Send(buffer, bytes);
+    char* response = nullptr;
+
+    if (!sent)
+    {
+        //std::cout << "Could not send buffer." << std::endl;
+        return response;
+    }
+
+    response = socket.Receive(receive);
+
+    return response;
 }

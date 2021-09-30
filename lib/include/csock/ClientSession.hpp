@@ -19,7 +19,7 @@ public:
     bool Close();
 
     char* Send(char* buffer, size_t bytes);
-    char* Send(char* buffer);
+    char* Send(char* buffer, size_t bytes, size_t receive);
 };
 
 #endif //WEBAX_CLIENTSESSION_HPP

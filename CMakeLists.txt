@@ -8,6 +8,14 @@ set(wxWidgets_CONFIGURATION mswu)
 find_package(wxWidgets COMPONENTS core base REQUIRED)
 include(${wxWidgets_USE_FILE})
 
-add_executable(Webax main.cpp include/IO.hpp include/UI.hpp components/UI/app/WebaxApp.cpp components/UI/app/WebaxFrame.cpp components/UI/include/WebaxApp.hpp components/UI/include/WebaxFrame.hpp components/UI/include/WebaxEventIDs.hpp lib/csock/unix/BaseSocketUnix.cpp lib/include/csock/unix/BaseSocketUnix.hpp lib/csock/ClientSession.cpp lib/include/csock/ClientSession.hpp lib/csock/BaseSocket.cpp lib/include/csock/BaseSocket.hpp lib/csock/Request.cpp lib/include/csock/Request.hpp)
+# CSock
+set(CSOCK_FILES lib/include/csock/unix/BaseSocketUnix.hpp lib/include/csock/ClientSession.hpp lib/include/csock/BaseSocket.hpp lib/include/csock/Request.hpp lib/include/csock/windows/BaseSocketWindows.hpp lib/csock/unix/BaseSocketUnix.cpp lib/csock/ClientSession.cpp lib/csock/BaseSocket.cpp lib/csock/Request.cpp lib/csock/windows/BaseSocketWindows.cpp)
+set(CSOCK_INCLUDE_DIRECTORY lib/include/csock)
+
+add_library(csock ${CSOCK_FILES})
+target_include_directories(csock PRIVATE ${CSOCK_INCLUDE_DIRECTORY})
+
+add_executable(Webax ${CSOCK_FILES} main.cpp include/IO.hpp include/UI.hpp components/UI/app/WebaxApp.cpp components/UI/app/WebaxFrame.cpp components/UI/include/WebaxApp.hpp components/UI/include/WebaxFrame.hpp components/UI/include/WebaxEventIDs.hpp components/IO/network/NetworkManager.cpp)
+target_include_directories(Webax PRIVATE ${CSOCK_INCLUDE_DIRECTORY})
 
 target_link_libraries(Webax ${wxWidgets_LIBRARIES})

@@ -26,6 +26,8 @@ WebaxFrame::WebaxFrame() : wxFrame(nullptr, wxID_ANY, "Webax Web Browser")
     menuBar->Append(menuFile, "&File");
     menuBar->Append(menuHelp, "&Help");
 
+    wxFrameBase::SetSize(800, 600);
+
     wxFrameBase::SetMenuBar(menuBar);
 
     wxFrameBase::CreateStatusBar();
