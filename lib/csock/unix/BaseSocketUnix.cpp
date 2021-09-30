@@ -10,6 +10,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <cstring>
+#include <iostream>
 
 bool BaseSocketUnix::Open()
 {
@@ -81,26 +82,32 @@ char* BaseSocketUnix::Receive(size_t bytes)
 
 char* BaseSocketUnix::ReceiveAll()
 {
-    size_t bytes = 0;
-    char* buffer = (char*)malloc(1);
+    size_t size = 4096;
+    size_t bytes = size;
+    char* buffer = (char*)malloc(size);
 
     while (true)
     {
-        char* tmp = (char*)malloc(1);
+        char* tmp = (char*)malloc(size);
 
-        ssize_t received = read(sock, tmp, 1);
-        buffer[bytes++] = tmp[0];
+        ssize_t received = read(sock, tmp, size);
 
-        free(tmp);
-
-        if (received == -1) // An error occured
+        if (received == -1) // Error
         {
-            //std::cout << "An error occured while reading a byte." << std::endl;
+            //std::cout << "An error occurred while trying to read bytes." << std::endl;
             continue;
         }
 
         if (received == 0) // EOF
             break;
+
+        char* oldbuf = buffer;
+        buffer = (char*)malloc(bytes += size);
+
+        strncpy(buffer, oldbuf, bytes - size);
+        strncat(buffer, tmp, received);
+
+        free(oldbuf);
     }
 
     return buffer;

@@ -10,6 +10,9 @@
 
 #include "../include/WebaxFrame.hpp"
 #include "../include/WebaxEventIDs.hpp"
+#include "../../../lib/include/csock/HttpRequest.hpp"
+
+#include <sstream>
 
 WebaxFrame::WebaxFrame() : wxFrame(nullptr, wxID_ANY, "Webax Web Browser")
 {
@@ -52,4 +55,14 @@ void WebaxFrame::OnAbout(wxCommandEvent& event)
 void WebaxFrame::OnHomePage(wxCommandEvent& event)
 {
     wxFrameBase::SetStatusText("Navigating to the home page...");
+
+    char* response = HttpRequest::Get("www.duckduckgo.com", "GET / HTTP/1.1\r\nHost: duckduckgo.com\r\nAccept: text/html\r\nConnection: close\r\n\r\n\r\n");
+
+    if (response != nullptr)
+    {
+        wxFrameBase::SetStatusText("Printing to console...");
+        std::cout << response << std::endl;
+
+        free(response);
+    } else wxFrameBase::SetStatusText("Address is unavailable.");
 }
