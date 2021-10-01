@@ -10,6 +10,7 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <string>
 
 HttpClientSession HttpClientSession::Create(char* domain)
 {
@@ -21,41 +22,37 @@ HttpClientSession HttpClientSession::Create(char* domain)
     int port = 80;
 
     // Remove protocol first
-    if (strstr(domain, "http://") != nullptr)
+    size_t index = (strstr(domain, "http://") != nullptr ? 7 : (strstr(domain, "https://") != nullptr ? 8 : 0));
+
+    if (index > 0)
     {
-        size_t length = strlen(domain) - 7;
+        size_t length = strlen(domain) - index;
         char* tmp = (char*)malloc(length);
 
         for (size_t i = 0; i < length; i++)
-            tmp[i] = domain[length - 1 + i];
+            tmp[i] = domain[index + i];
 
         address = tmp;
-        free(tmp);
-    }
-    else if (strstr(domain, "https://") != nullptr)
-    {
-        size_t length = strlen(domain) - 8;
-        char* tmp = (char*)malloc(length);
-
-        for (size_t i = 0; i < length; i++)
-            tmp[i] = domain[length - 1 + i];
-
-        address = tmp;
-        free(tmp);
     }
 
-    // Parse domain into address and port
-    if (strstr(domain, ":") != nullptr)
+    // Parse domain into address and port, if there is any port
+    if (strstr(address, ":") != nullptr)
     {
-        address = strtok(domain, ":");
+        address = strtok(address, ":");
         port = atoi(strtok(nullptr, ":"));
     }
 
-    // Check if the domain is an actual domain name and not an IP address
-    // TODO: Better detection (because of IPv6 addresses)
-    for (size_t i = 0; i < strlen(address); i++)
-        if (isalpha(address[i]))
+    // Check if the address is an actual domain, not an IPv4 address for instance
+    if (strstr(address, ".") != nullptr)
+    {
+        // Find any dot in the address
+        char* end = address + strlen(address);
+        char* match = std::find(address, end, '.');
+        size_t dotindex = (end == match) ? -1 : (match - address);
+
+        if (isalpha(address[dotindex - 1])) // Then we are sure it is an actual domain
         {
+            // Check if the domain is an actual domain name and not an IP address
             hostent* record = gethostbyname(address);
             if (record == nullptr)
             {
@@ -65,6 +62,7 @@ HttpClientSession HttpClientSession::Create(char* domain)
             }
             address = inet_ntoa(*(in_addr*)record->h_addr);
         }
+    }
 
     session.socket.socket.address = address;
     session.socket.socket.port = port;

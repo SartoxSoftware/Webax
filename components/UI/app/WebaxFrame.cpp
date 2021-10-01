@@ -56,7 +56,7 @@ void WebaxFrame::OnHomePage(wxCommandEvent& event)
 {
     wxFrameBase::SetStatusText("Navigating to the home page...");
 
-    char* response = HttpRequest::Get("www.duckduckgo.com", "GET / HTTP/1.1\r\nHost: duckduckgo.com\r\nAccept: text/html\r\nConnection: close\r\n\r\n\r\n");
+    char* response = HttpRequest::Get("https://www.duckduckgo.com:80", "GET / HTTP/1.1\r\nHost: duckduckgo.com\r\nAccept: text/html\r\nConnection: close\r\n\r\n\r\n");
 
     if (response != nullptr)
     {
@@ -65,4 +65,6 @@ void WebaxFrame::OnHomePage(wxCommandEvent& event)
 
         free(response);
     } else wxFrameBase::SetStatusText("Address is unavailable.");
+
+    wxFrameBase::SetStatusText("Done!");
 }

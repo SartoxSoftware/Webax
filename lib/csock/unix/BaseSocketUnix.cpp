@@ -18,23 +18,30 @@ bool BaseSocketUnix::Open()
 
     int domain = AF_INET;
 
-    // Check if address is IPv6
-    if (strstr(address, ":") != nullptr)
-        domain = AF_INET6;
-
-    if ((sock = socket(domain, SOCK_STREAM, 0)) < 0)
-    {
-        //std::cout << "An error occured while trying to create the socket." << std::endl;
-        return false;
-    }
-
     serv_addr.sin_family = domain;
     serv_addr.sin_port = htons(port);
 
     // Convert the text address into binary
     if (inet_pton(domain, address, &serv_addr.sin_addr) <= 0)
     {
-        //std::cout << "Address not supported or invalid!" << std::endl;
+        serv_addr.sin_family = AF_INET6;
+        
+        // Maybe address is IPv6?
+        if (inet_pton(AF_INET6, address, &serv_addr.sin_addr) == 1)
+        {
+            domain = AF_INET6;
+            goto connect;
+        }
+
+        // If not then it's really invalid
+        std::cout << "Address not supported or invalid!" << std::endl;
+        return false;
+    }
+
+    connect:
+    if ((sock = socket(domain, SOCK_STREAM, 0)) < 0)
+    {
+        //std::cout << "An error occured while trying to create the socket." << std::endl;
         return false;
     }
 
