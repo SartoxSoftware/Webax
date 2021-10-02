@@ -9,6 +9,7 @@ class WebaxFrame : public wxFrame
 {
 public:
     WebaxFrame();
+
 private:
     void OnHomePage(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);

@@ -11,31 +11,12 @@
 #include "../include/WebaxFrame.hpp"
 #include "../include/WebaxEventIDs.hpp"
 #include "../../../lib/include/csock/HttpRequest.hpp"
+#include "../../../include/Util.hpp"
 
 #include <sstream>
 
-WebaxFrame::WebaxFrame() : wxFrame(nullptr, wxID_ANY, "Webax Web Browser")
+WebaxFrame::WebaxFrame() : wxFrame(nullptr, wxID_ANY, wxT("Webax Web Browser"))
 {
-    auto *menuFile = new wxMenu;
-    menuFile->Append(ID_HOMEPAGE, "&Home page\tCtrl-H",
-                         "Help string shown in status bar for this menu item");
-    menuFile->AppendSeparator();
-    menuFile->Append(wxID_EXIT);
-
-    auto *menuHelp = new wxMenu;
-    menuHelp->Append(wxID_ABOUT);
-
-    auto *menuBar = new wxMenuBar;
-    menuBar->Append(menuFile, "&File");
-    menuBar->Append(menuHelp, "&Help");
-
-    wxFrameBase::SetSize(800, 600);
-
-    wxFrameBase::SetMenuBar(menuBar);
-
-    wxFrameBase::CreateStatusBar();
-    wxFrameBase::SetStatusText("Welcome to Webax!");
-
     Bind(wxEVT_MENU, &WebaxFrame::OnHomePage, this, ID_HOMEPAGE);
     Bind(wxEVT_MENU, &WebaxFrame::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_MENU, &WebaxFrame::OnExit, this, wxID_EXIT);
@@ -48,23 +29,34 @@ void WebaxFrame::OnExit(wxCommandEvent& event)
 
 void WebaxFrame::OnAbout(wxCommandEvent& event)
 {
-    wxMessageBox("A web browser built from scratch using a custom engine and wxWidgets.",
-                 "About Webax", wxOK | wxICON_INFORMATION);
+    wxMessageBox(wxT("A web browser built from scratch using a custom engine and wxWidgets."),
+                 wxT("About Webax"), wxOK | wxICON_INFORMATION);
 }
 
 void WebaxFrame::OnHomePage(wxCommandEvent& event)
 {
-    wxFrameBase::SetStatusText("Navigating to the home page...");
+    wxFrameBase::SetStatusText(wxT("Navigating to the home page..."));
 
-    char* response = HttpRequest::Get("https://www.duckduckgo.com:80", "GET / HTTP/1.1\r\nHost: duckduckgo.com\r\nAccept: text/html\r\nConnection: close\r\n\r\n\r\n");
+    char* website = "https://www.duckduckgo.com:80/index.html";
+    HttpClientSession session = HttpClientSession::Create(website);
+
+    // Make the request headers
+    std::stringstream ss;
+    ss << "GET " << session.page << " HTTP/1.1\r\n";
+    ss << "Host: " << session.host << "\r\n";
+    ss << "Accept: text/html\r\n";
+    ss << "Connection: close\r\n";
+    ss << "\r\n\r\n";
+
+    // Send a GET request to the website to get its content
+    char* response = HttpRequest::Get(session, (char*)ss.str().c_str());
 
     if (response != nullptr)
     {
-        wxFrameBase::SetStatusText("Printing to console...");
+        wxFrameBase::SetStatusText(wxT("Printing to console..."));
         std::cout << response << std::endl;
 
         free(response);
-    } else wxFrameBase::SetStatusText("Address is unavailable.");
-
-    wxFrameBase::SetStatusText("Done!");
+        wxFrameBase::SetStatusText(wxT("Done!"));
+    } else wxFrameBase::SetStatusText(wxT("Address is unavailable."));
 }

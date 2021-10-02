@@ -3,6 +3,7 @@
 //
 
 #include "../include/csock/HttpClientSession.hpp"
+#include "../../include/Util.hpp"
 
 #include <cstring>
 #include <cstdlib>
@@ -11,6 +12,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <string>
+#include <sstream>
 
 HttpClientSession HttpClientSession::Create(char* domain)
 {
@@ -20,26 +22,21 @@ HttpClientSession HttpClientSession::Create(char* domain)
 
     char* address = domain;
     int port = 80;
+    char* protocol = "https";
+    bool isname = false;
 
-    // Remove protocol first
-    size_t index = (strstr(domain, "http://") != nullptr ? 7 : (strstr(domain, "https://") != nullptr ? 8 : 0));
+    std::stringstream subdomain;
+    std::stringstream page;
 
-    if (index > 0)
+    page << "/";
+
+    // Protocol
+    if (strstr(address, "://") != nullptr)
     {
-        size_t length = strlen(domain) - index;
-        char* tmp = (char*)malloc(length);
-
-        for (size_t i = 0; i < length; i++)
-            tmp[i] = domain[index + i];
-
-        address = tmp;
-    }
-
-    // Parse domain into address and port, if there is any port
-    if (strstr(address, ":") != nullptr)
-    {
-        address = strtok(address, ":");
-        port = atoi(strtok(nullptr, ":"));
+        char** split = Util::Split(address, "://");
+        protocol = split[0];
+        address = split[1];
+        free(split);
     }
 
     // Check if the address is an actual domain, not an IPv4 address for instance
@@ -48,21 +45,68 @@ HttpClientSession HttpClientSession::Create(char* domain)
         // Find any dot in the address
         char* end = address + strlen(address);
         char* match = std::find(address, end, '.');
-        size_t dotindex = (end == match) ? -1 : (match - address);
+        size_t index = (end == match) ? -1 : (match - address);
 
-        if (isalpha(address[dotindex - 1])) // Then we are sure it is an actual domain
+        if (isalpha(address[index - 1])) // Then we are sure it is an actual domain
         {
-            // Check if the domain is an actual domain name and not an IP address
-            hostent* record = gethostbyname(address);
-            if (record == nullptr)
-            {
-                //std::cout << address << " is unavailable" << std::endl;
-                session.socket.socket.address = nullptr;
-                return session;
-            }
-            address = inet_ntoa(*(in_addr*)record->h_addr);
+            isname = true;
+
+            // Subdomain
+            // TODO: Better check for subdomain
+            /*char** split = Util::Split(address, ".");
+            std::string addr(address);
+
+            if (addr.ends_with(split[1]))
+                subdomain << "www";
+            else
+                subdomain << split[0];
+
+            session.subdomain = subdomain.str();
+            free(split);*/
         }
     }
+
+    // Page
+    if (strstr(address, "/") != nullptr)
+    {
+        char** split = Util::Split(address, "/");
+        address = split[0];
+        // We are efficient, so we parse the pages at the same time
+        page << split[1];
+        free(split);
+    }
+
+    // Port
+    if (strstr(address, ":") != nullptr)
+    {
+        char** split = Util::Split(address, ":");
+        address = split[0];
+        port = atoi(split[1]);
+        free(split);
+    }
+
+    // Host
+    subdomain << ".";
+
+    // TODO: Subdomain
+    char** spl = Util::Split(address, /*(char*)subdomain.str().c_str()*/"www");
+    session.host = spl[1];
+    free(spl);
+
+    if (isname) // If it's a domain name then we can transform it into an IPv4 address
+    {
+        hostent* record = gethostbyname(address);
+        if (record == nullptr)
+        {
+            //std::cout << address << " is unavailable" << std::endl;
+            session.socket.socket.address = nullptr;
+            return session;
+        }
+        address = inet_ntoa(*(in_addr*)record->h_addr);
+    }
+
+    session.protocol = protocol;
+    session.page = page.str();
 
     session.socket.socket.address = address;
     session.socket.socket.port = port;

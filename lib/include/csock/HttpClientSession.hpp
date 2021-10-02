@@ -8,12 +8,18 @@
 #include "BaseSocket.hpp"
 
 #include <cstddef>
+#include <sstream>
 
 class HttpClientSession
 {
 public:
     BaseSocket socket;
     char** headers;
+    char* protocol;
+
+    std::string host;
+    std::string page;
+    std::string subdomain;
 
     static HttpClientSession Create(char* domain);
 

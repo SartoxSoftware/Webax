@@ -15,7 +15,7 @@ set(CSOCK_INCLUDE_DIRECTORY lib/include/csock)
 add_library(csock ${CSOCK_FILES})
 target_include_directories(csock PRIVATE ${CSOCK_INCLUDE_DIRECTORY})
 
-add_executable(Webax ${CSOCK_FILES} main.cpp include/IO.hpp include/UI.hpp components/UI/app/WebaxApp.cpp components/UI/app/WebaxFrame.cpp components/UI/include/WebaxApp.hpp components/UI/include/WebaxFrame.hpp components/UI/include/WebaxEventIDs.hpp)
+add_executable(Webax ${CSOCK_FILES} main.cpp include/IO.hpp include/UI.hpp components/UI/app/WebaxApp.cpp components/UI/app/WebaxFrame.cpp components/UI/include/WebaxApp.hpp components/UI/include/WebaxFrame.hpp components/UI/include/WebaxEventIDs.hpp components/UI/widgets/EntryContainer/EntryContainer.cpp components/UI/include/EntryContainer.hpp components/UI/widgets/CoreRenderContainer/CoreRenderContainer.cpp components/UI/include/CoreRenderContainer.hpp include/Util.hpp)
 target_include_directories(Webax PRIVATE ${CSOCK_INCLUDE_DIRECTORY})
 
 target_link_libraries(Webax ${wxWidgets_LIBRARIES})
