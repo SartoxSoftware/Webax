@@ -15,12 +15,12 @@ public:
     {
         size_t buffers = 20, chars = 1024;
 
-        char** result = (char**)malloc(buffers);
+        char** result = (char**)malloc(buffers * sizeof(char*));
         size_t start = 0, i = 0;
 
         loop:
 
-        char* buf = new char[chars];
+        char* buf = (char*)malloc(chars * sizeof(char*));
         size_t index = 0;
 
         for (; start < strlen(chr); start++)

@@ -53,7 +53,7 @@ HttpClientSession HttpClientSession::Create(char* domain)
 
             // Subdomain
             // TODO: Better check for subdomain
-            /*char** split = Util::Split(address, ".");
+            char** split = Util::Split(address, ".");
             std::string addr(address);
 
             if (addr.ends_with(split[1]))
@@ -62,7 +62,7 @@ HttpClientSession HttpClientSession::Create(char* domain)
                 subdomain << split[0];
 
             session.subdomain = subdomain.str();
-            free(split);*/
+            free(split);
         }
     }
 
@@ -88,8 +88,7 @@ HttpClientSession HttpClientSession::Create(char* domain)
     // Host
     subdomain << ".";
 
-    // TODO: Subdomain
-    char** spl = Util::Split(address, /*(char*)subdomain.str().c_str()*/"www");
+    char** spl = Util::Split(address, (char*)subdomain.str().c_str());
     session.host = spl[1];
     free(spl);
 
